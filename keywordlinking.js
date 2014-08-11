@@ -35,7 +35,8 @@
 TODO 
 
 	1. pre int not working with \b 
-	2. case insensitive but replaces the match with the keyword! may set to case sensiitive*/
+
+*/
 
 //SETTINGS
 
