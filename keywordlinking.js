@@ -1,42 +1,9 @@
-<html>
-<head>
-	<title>keywordlinking</title>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container">
-	<!-- <input type="text" id="crosskeyword"> -->
-	<h1>Crossie develepment!</h1>
-	<div class="keywordlinking">
-		<p>deze tekst ga ik gebruiken en filteren op keywordlinking</p>
-		<p>zoek in complete div of ander element of zo, ook alle html filteren</p>
-		<ul>
-			<li>list 1</li>
-			<li>liSt 2</li>
-			<li>toscrossie!</li>
-			<li>{{crossie}}</li>
-			<li>Crossie</li>
-			<li>"crossie" crossie crossietje crossie1</li>
-		</ul>
-	</div>
-	<span>
-		<p>hier geen keywordlinking crossie! crossie</p>
-	</span>
-	<span class="keywordlinking">
-		<p>hier weer wel keywordlinking crossie! crossie crossie2 2crossie CrOsSie</p>
-	</span>
-</div>
-</body>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script>
-
 /*
 TODO 
 
 	1. pre int not working with \b 
 
-*/
+	*/
 
 //SETTINGS
 
@@ -61,21 +28,33 @@ var crosskeywords =
 	[
 		{
 			"crosslink_key":"example",
-			"desc":"text of link",
+			"desc":"text or link",
 			"image":"",
-			"url":"1"
+			"url":"#"
 		},
 		{
-			"crosslink_key":"keyword",
+			"crosslink_key":"keywords",
 			"desc":"description text",
 			"image":"http://www.centos.org/images/logo_small.png",
-			"url":"2"
+			"url":"#"
 		},
 		{
 			"crosslink_key":"link",
 			"desc":"text popup",
 			"image":"",
-			"url":"3"
+			"url":"#"
+		},
+		{
+			"crosslink_key":"div",
+			"desc":"is a block element",
+			"image":"",
+			"url":"http://en.wikipedia.org/wiki/Span_and_div"
+		},
+		{
+			"crosslink_key":"span",
+			"desc":"is inline",
+			"image":"",
+			"url":"http://en.wikipedia.org/wiki/Span_and_div"
 		}
 	];
 
@@ -97,7 +76,7 @@ for(var i = 0; i < elements.length; i++){
 		enablepopover?popover="data-toggle='popover' title='"+titleMutation(keyword.crosslink_key)+"' data-content='"+image+keyword.desc+"'":popover="";
 		casesensitive?regexpmod="g":regexpmod="gi";
 		var regexp = new RegExp(donotsearchintags+precharacters+keyword.crosslink_key+postcharacters,regexpmod);
-		textnew = text.replace(regexp,function(match){return "<a href='#"+keyword.url+"' "+popover+">"+match+"</a>"});
+		textnew = text.replace(regexp,function(match){return "<a href='"+keyword.url+"' "+popover+">"+match+"</a>"});
 		elements[i].innerHTML = textnew;
 	});
 }
@@ -120,8 +99,3 @@ if (enablepopover){
     	placement: popover_placement
 	});
 }
-
-
-</script>
-</html>
-
