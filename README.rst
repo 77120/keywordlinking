@@ -1,6 +1,6 @@
-######################
-What is keywordlinking
-######################
+########################
+What does keywordlinking
+########################
 
 Keyword linking searches the text nodes in your html for keywords you define through json, and creat links and popovers for them.
 
