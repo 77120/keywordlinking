@@ -60,19 +60,31 @@ var crosskeywords =
 			"crosslink_key":"example",
 			"desc":"text or link",
 			"image":"",
-			"url":"1"
+			"url":"#"
 		},
 		{
 			"crosslink_key":"keywords",
 			"desc":"description text",
 			"image":"http://www.centos.org/images/logo_small.png",
-			"url":"2"
+			"url":"#"
 		},
 		{
 			"crosslink_key":"link",
 			"desc":"text popup",
 			"image":"",
-			"url":"3"
+			"url":"#"
+		},
+		{
+			"crosslink_key":"div",
+			"desc":"is a block element",
+			"image":"",
+			"url":"http://en.wikipedia.org/wiki/Span_and_div"
+		},
+		{
+			"crosslink_key":"span",
+			"desc":"is inline",
+			"image":"",
+			"url":"http://en.wikipedia.org/wiki/Span_and_div"
 		}
 	];
 
@@ -94,7 +106,7 @@ for(var i = 0; i < elements.length; i++){
 		enablepopover?popover="data-toggle='popover' title='"+titleMutation(keyword.crosslink_key)+"' data-content='"+image+keyword.desc+"'":popover="";
 		casesensitive?regexpmod="g":regexpmod="gi";
 		var regexp = new RegExp(donotsearchintags+precharacters+keyword.crosslink_key+postcharacters,regexpmod);
-		textnew = text.replace(regexp,function(match){return "<a href='#"+keyword.url+"' "+popover+">"+match+"</a>"});
+		textnew = text.replace(regexp,function(match){return "<a href='"+keyword.url+"' "+popover+">"+match+"</a>"});
 		elements[i].innerHTML = textnew;
 	});
 }
