@@ -1,11 +1,16 @@
-########################
-What does keywordlinking
-########################
+###################
+Keywordlinking info
+###################
 
 Keyword linking searches the text nodes in your html for keywords you define through json, and creat links and popovers for them.
 
-***********
-Information
-***********
+**********
+how to use
+**********
 
-You can choose the html element to seach in by adding class="keywordlinking" to the element.
+You can choose the html elements to seach in by adding class="keywordlinking" to the elements.
+and alter var crosskeywords to your desired json!
+
+if you want to enable the popovers be sure to include bootstrap and jquery.
+
+
