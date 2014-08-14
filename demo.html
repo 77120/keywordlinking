@@ -9,14 +9,45 @@
 	<div class="keywordlinking">
 		<p>Some example text where to apply keywordlinking</p>
 		<p>you can see that some keywords are transformed into links</p>
-		<ul>
-			<li>Links</li>
-			<li>Link</li>
-			<li>linked!</li>
-			<li>link1</li>
-			<li>link!</li>
-			<li>"link"</li>
-		</ul>
+		<table class="table table-bordered table-condensed table-striped">
+			<tr>
+				<th>String</th>
+				<th>Comment</th>
+			</tr>
+			<tr>
+				<td>Links</td><td>The string cant be preceded by a other letter because it could mean something else</td>
+			</tr>
+			<tr>
+				<td>linked!</td><td></td>
+			</tr>
+			<tr>
+				<td>Link</td><td>Case sensitive can be turned on or off, if turned off the capitalision will stay intact</td>
+			</tr>
+			<tr>
+				<td>link1</td><td>The string can be preceded by a other non letter</td>
+			</tr>
+			<tr>
+				<td>link!</td><td></td>
+			</tr>
+			<tr>
+				<td>1link</td><td>The string cant be preceded by a other number yet.</td>
+			</tr>
+			<tr>
+				<td>1 link</td><td>This way it would match</td>
+			</tr>
+			<tr>
+				<td>!link</td><td>also with other characters then numbers or letters</td>
+			</tr>
+			<tr>
+				<td>"link"</td><td>both pre and post</td>
+			</tr>
+			<tr>
+				<td>[link]</td><td>ignore squarebrackets? depends on your settings</td>
+			</tr>
+			<tr>
+				<td>{{link}}</td><td>ignore curlybrackets? needed for angularjs</td>
+			</tr>
+		</table>
 	</div>
 	<span>
 		<p>Example div/span where no keywordlinking will apply!</p>
@@ -34,11 +65,14 @@
 TODO 
 
 	1. pre int not working with \b 
-*/
+
+	*/
+
 //SETTINGS
 
 /*Match Settings*/
-var skipcurlybraces = false;
+var skipcurlybraces = true;
+var skipsquarebraces = false;
 var casesensitive = false;
 
 /*Popover Settings*/
@@ -90,6 +124,7 @@ var crosskeywords =
 
 var donotsearchintags = "(?![^<]*>)";
 skipcurlybraces?donotsearchintags += "(?![^{]*})":"";
+skipsquarebraces?donotsearchintags += "(?![^\[]*\])":"";
 /*var precharacters = "(?<![a-z])"; lookbehind not supported by javascript*/
 var postcharacters = "(?![a-zA-Z])";
 var precharacters = "\\b";
