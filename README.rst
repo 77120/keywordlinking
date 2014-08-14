@@ -13,7 +13,8 @@ and alter var crosskeywords to your desired json!
 
 if you want to enable the popovers be sure to include bootstrap and jquery.
 
-'jsfiddle <http://jsfiddle.net/77120/5na43dw0/>'_
+'jsfiddle 
+<http://jsfiddle.net/77120/5na43dw0/>'_
 
 `CodeIgniter Downloads
 <http://codeigniter.com/downloads/>`_
