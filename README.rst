@@ -15,3 +15,5 @@ if you want to enable the popovers be sure to include bootstrap and jquery.
 
 'jsfiddle <http://jsfiddle.net/77120/5na43dw0/>'_
 
+visit the `CodeIgniter Downloads
+<http://codeigniter.com/downloads/>`_ page.
