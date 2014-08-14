@@ -13,6 +13,5 @@ and alter var crosskeywords to your desired json!
 
 if you want to enable the popovers be sure to include bootstrap and jquery.
 
-
-<a src="http://jsfiddle.net/77120/5na43dw0/">jsfiddle</a>
+`jsfiddle<http://jsfiddle.net/77120/5na43dw0/>`_
 
