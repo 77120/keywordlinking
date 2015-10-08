@@ -1,29 +1,33 @@
 /*
 TODO 
 
-	1. pre int not working with \b 
+1. pre int not working with \b 
+2. allow html is not working yet
+3. load external json file
 
-	*/
+*/
 
+(function() {
 //SETTINGS
-		/*Match Settings*/
-	var skipcurlybraces = true,
-		skipsquarebraces = false,
-		casesensitive = false,
+
+var skipcurlybraces = true,
+	skipsquarebraces = false,
+	casesensitive = false,
 		
-		/*Popover Settings*/
-		/*if popover set to true, bootstrap css and js is required */
-		enablepopover = true,
-		popover_trigger = 'hover',
-		popover_placement = 'right',
-		popover_allow_html = true,// must be on
-		/*if allow_images is true allow_html also must be true*/
-		popover_allow_images = true,
-		/*title mutation values capitaliseFirstLetter, capitaliseAll, none*/
-		title_mutation_settings = 'capitaliseFirstLetter';
+	/*Popover Settings*/
+	/*if popover set to true, bootstrap css and js is required */
+	enablepopover = true,
+	popover_trigger = 'hover',
+	popover_placement = 'right',
+	popover_allow_html = true,// must be on for now
+	/*if allow_images is true allow_html also must be true*/
+	popover_allow_images = true,
+	/*title mutation values capitaliseFirstLetter, capitaliseAll, none*/
+	title_mutation_settings = 'capitaliseFirstLetter';
 	
-	// END SETTINGS
+// END SETTINGS
 	
+	// load json file
 	var crosskeywords = 
 		[
 			{
@@ -76,7 +80,7 @@ TODO
 	for(var i = 0; i < elements.length; i++){
 	
 		keyword = crosskeywords[i].crosslink_key;
-	    crosskeywords.forEach(function(keyword) {
+	    	crosskeywords.forEach(function(keyword) {
 			text = elements[i].innerHTML;
 			
 			enablepopover?popover="data-toggle='popover' imgurl='"+keyword.image+"' desc='"+keyword.desc+"' title='"+titleMutation(keyword.crosslink_key)+"'":popover="";
@@ -111,3 +115,4 @@ TODO
   			}
 		});
 	}
+}).call(this);
