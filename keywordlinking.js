@@ -4,6 +4,7 @@ TODO
 1. pre int not working with \b 
 2. allow html is not working yet
 3. load external json file
+4. performance!!!
 
 */
 
