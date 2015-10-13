@@ -18,9 +18,8 @@ TODO
 		enablepopover = true,
 		popover_trigger = 'hover',
 		popover_placement = 'right',
-		popover_allow_html = true,// must be on
-		/*if allow_images is true allow_html also must be true*/
-		popover_allow_images = true,
+		popover_allow_html = true, // must be true if popover_allow_images is true
+		popover_allow_images = true, // cant be true if popover_allow_html is false
 		/*title mutation values capitaliseFirstLetter, capitaliseAll, none*/
 		title_mutation_settings = 'capitaliseFirstLetter';
 	
