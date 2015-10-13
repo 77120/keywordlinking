@@ -1,8 +1,6 @@
 /*
 TODO 
 
-1. pre int not working with \b 
-2. allow html is not working yet
 3. load external json file
 
 */
@@ -73,16 +71,17 @@ TODO
 	skipcurlybraces?donotsearchintags += "(?![^{]*})":"";
 	skipsquarebraces?donotsearchintags += "(?![^\[]*\])":"";
 	/*var precharacters = "(?<![a-z])"; lookbehind not supported by javascript*/
+	var precharacters = "(\\b|\\B)"; // instead of lookbehind
 	var postcharacters = "(?![a-zA-Z])";
-	var precharacters = "\\b";
-	
+
 	var elements = document.getElementsByClassName('keywordlinking');
 
-	var keywords = "";
+	var keywords = "(";
 	crosskeywords.forEach(function(keyword, i) {
 	var alternative = i==0?"":"|";
 		keywords += alternative+keyword.crosslink_key;
 	});
+	keywords += ")";
 
 	casesensitive?regexpmod="g":regexpmod="gi";
 	var regexp = new RegExp(donotsearchintags+precharacters+keywords+postcharacters,regexpmod);
@@ -94,7 +93,7 @@ TODO
 		textnew = text.replace(regexp,function(match){
 			matched = getCrosslink(match)[0];
 			
-			enablepopover?popover="data-toggle='popover_crosslink' imgurl='"+matched.image+"' desc='"+matched.desc+"' title='"+titleMutation(match)+"'":popover="";
+			enablepopover?popover="data-toggle='popover_crosslink' imgurl='"+matched.image+"' desc='"+matched.desc.replace(/'/g,"\"")+"' title='"+titleMutation(match)+"'":popover="";
 			return "<a href='"+matched.url+"' "+popover+">"+match+"</a>";
 		});
 		elements[i].innerHTML = textnew;
