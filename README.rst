@@ -2,7 +2,7 @@
 Keywordlinking info
 ###################
 
-Keyword linking searches the text nodes in your html for keywords you define through json, and creat links and popovers for them.
+Keyword linking searches the text nodes in your html for keywords you define through json, and create links and popovers for them.
 
 **********
 how to use
