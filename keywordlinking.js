@@ -1,16 +1,8 @@
-/*
-TODO 
-
-3. load external json file
-
-*/
-
 (function() {
-		/*Match Settings*/
-
+	//Match Settings
 
 	var skipcurlybraces = true,
-		skipsquarebraces = false,
+		skipsquarebraces = true,
 		casesensitive = false,
 		
 		/*Popover Settings*/
@@ -25,7 +17,7 @@ TODO
 	
 	// END SETTINGS
 	
-	// load a json file
+	// load a json file (this part could be generated from a database)
 	var crosskeywords = 
 		[
 			{
@@ -60,45 +52,48 @@ TODO
 			},
 			{
 				"crosslink_key":"html",
-				"desc":"text <p>with html</p>",
+				"desc":"text <p>with html</p><img src='http://www.centos.org/images/logo_small.png'>",
 				"image":"",
 				"url":"http://en.wikipedia.org/wiki/Span_and_div"
 			}
 		];
 	
-	var donotsearchintags = "(?![^<]*>)";
-	skipcurlybraces?donotsearchintags += "(?![^{]*})":"";
-	skipsquarebraces?donotsearchintags += "(?![^\[]*\])":"";
-	/*var precharacters = "(?<![a-z])"; lookbehind not supported by javascript*/
-	var precharacters = "(\\b|\\B)"; // instead of lookbehind
-	var postcharacters = "(?![a-zA-Z])";
-
-	var elements = document.getElementsByClassName('keywordlinking');
-
-	var keywords = "(";
+	// Create Regex 
+	var donotsearchintags = '(?![^<]*>)'; // do not look in html tags < ... >
+	skipcurlybraces?donotsearchintags += '(?![^{]*})':'';  // do not look in curlybraces { ... } 
+	skipsquarebraces?donotsearchintags += '(?![^\[]*\])':'';  // do not look in squarebraces [ ... ]
+	/*var precharacters = '(?<![a-z])'; lookbehind not supported by javascript*/
+	var precharacters = '(\\b|[^a-zA-Z])'; // instead of lookbehind (\b is needed if match is not preceded by anything aka: first word in div)
+	var postcharacters = '(?![a-zA-Z])'; // the match canot be followed by any letter, but can by anything else (even - _) 
+	
+	// creates a group for all the crosslink_keys
+	var keywords = '(';
 	crosskeywords.forEach(function(keyword, i) {
-	var alternative = i==0?"":"|";
+	var alternative = i==0?'':'|';
 		keywords += alternative+keyword.crosslink_key;
 	});
-	keywords += ")";
+	keywords += ')';
+	
+	casesensitive?regexpmod='g':regexpmod='gi';
 
-	casesensitive?regexpmod="g":regexpmod="gi";
-	var regexp = new RegExp(donotsearchintags+precharacters+keywords+postcharacters,regexpmod);
+	var regexp = new RegExp(precharacters+donotsearchintags+keywords+postcharacters,regexpmod);
+	// END Create Regex
 
+	// get the elements where to perform.
+	var elements = document.getElementsByClassName('keywordlinking');
 
+	// loop over the elements
 	for(var i = 0; i < elements.length; i++){
 		text = elements[i].innerHTML;
-
-		textnew = text.replace(regexp,function(match){
-			matched = getCrosslink(match)[0];
-			
-			enablepopover?popover="data-toggle='popover_crosslink' imgurl='"+matched.image+"' desc='"+matched.desc.replace(/'/g,"\"")+"' title='"+titleMutation(match)+"'":popover="";
-			return "<a href='"+matched.url+"' "+popover+">"+match+"</a>";
+		textnew = text.replace(regexp,function(allMatch, match1, match2){ // the replace function will loop over every match
+			matched = getCrosslink(match2)[0];
+			enablepopover?popover='data-toggle="popover_crosslink" imgurl="'+matched.image+'" desc="'+matched.desc+'" title="'+titleMutation(match2)+'"':popover='';
+			return match1+'<a href="'+matched.url+'" '+popover+'>'+match2+'</a>';
 		});
-		elements[i].innerHTML = textnew;
+		elements[i].innerHTML = textnew; // write the new text just once for each element
 	}
 
-
+	// when match get the other info from the json
 	function getCrosslink(match) {
 		match = match.toLowerCase();
 	  	return crosskeywords.filter(
@@ -108,7 +103,7 @@ TODO
 	  	);
 	}
 
-
+	// the title on hover or for the popover
 	function titleMutation(string)
 	{
 		switch(title_mutation_settings) {
@@ -124,6 +119,7 @@ TODO
 	}
 	
 	if (enablepopover){
+		// i use jquery here because its needed anyway for the bootstrap js
 		$('[data-toggle="popover_crosslink"]').popover({
 	    	trigger: popover_trigger,
 	    	html: popover_allow_html,
@@ -133,4 +129,4 @@ TODO
   			}
 		});
 	}
-}).call(this);
+})();
